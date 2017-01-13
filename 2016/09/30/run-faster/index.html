@@ -1,0 +1,829 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="angular,jquery,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="SEFO-UIFE" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1">
+
+
+
+
+
+
+<meta name="description" content="优化方向
+设计器操作性能优化
+设计器加载启动速度优化
+
+操作性能优化性能缺陷分析
+设计器中未添加项目时页面中的html标签数量达到： 6258 个
+
+123document.getElementsByTagName(&apos;*&apos;).length//得到 6258 多个DOM节点，还是比较多了。可想添加了项目之后这个还会增加更多，预计在1万以上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angularjs项目优化方案">
+<meta property="og:url" content="http://yoursite.com/2016/09/30/run-faster/index.html">
+<meta property="og:site_name" content="SEFO-UIFE">
+<meta property="og:description" content="优化方向
+设计器操作性能优化
+设计器加载启动速度优化
+
+操作性能优化性能缺陷分析
+设计器中未添加项目时页面中的html标签数量达到： 6258 个
+
+123document.getElementsByTagName(&apos;*&apos;).length//得到 6258 多个DOM节点，还是比较多了。可想添加了项目之后这个还会增加更多，预计在1万以上">
+<meta property="og:updated_time" content="2016-09-30T09:04:29.994Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="angularjs项目优化方案">
+<meta name="twitter:description" content="优化方向
+设计器操作性能优化
+设计器加载启动速度优化
+
+操作性能优化性能缺陷分析
+设计器中未添加项目时页面中的html标签数量达到： 6258 个
+
+123document.getElementsByTagName(&apos;*&apos;).length//得到 6258 多个DOM节点，还是比较多了。可想添加了项目之后这个还会增加更多，预计在1万以上">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> angularjs项目优化方案 | SEFO-UIFE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SEFO-UIFE</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Do more say less</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                angularjs项目优化方案
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-30T17:20:31+08:00" content="2016-09-30">
+              2016-09-30
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/性能优化/" itemprop="url" rel="index">
+                    <span itemprop="name">性能优化</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="优化方向"><a href="#优化方向" class="headerlink" title="优化方向"></a>优化方向</h2><ul>
+<li>设计器操作性能优化</li>
+<li>设计器加载启动速度优化</li>
+</ul>
+<h2 id="操作性能优化"><a href="#操作性能优化" class="headerlink" title="操作性能优化"></a>操作性能优化</h2><h3 id="性能缺陷分析"><a href="#性能缺陷分析" class="headerlink" title="性能缺陷分析"></a>性能缺陷分析</h3><ul>
+<li>设计器中未添加项目时页面中的<code>html</code>标签数量达到： 6258 个</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'*'</span>).length</div><div class="line"><span class="comment">//得到 6258 多个DOM节点，还是比较多了。可想添加了项目之后这个还会增加更多，预计在1万以上</span></div></pre></td></tr></table></figure>
+<a id="more"></a>
+<ul>
+<li>由于<code>html</code>节点很多，在查找操作某个DOM节点时是非常消耗性能的，其中项目中（designerDirective.js，等组件。。。）存在较多未缓存的节点操作；</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">//element.parent(),多次使用，可以缓存起来</span></div><div class="line"><span class="comment">//同时element.parent().parent()，也是多次使用，多次查找</span></div><div class="line">state = element.parent().attr(<span class="string">"state"</span>);</div><div class="line">   <span class="keyword">if</span> (state == <span class="string">'close'</span>) &#123;</div><div class="line">       element.parent().parent().addClass(<span class="string">"pageCtrInitialize"</span>).removeClass(<span class="string">"pageCtr"</span>);</div><div class="line">       element.parent().parent().siblings().addClass(<span class="string">"moduleCtrInitialize"</span>).removeClass(<span class="string">"moduleCtr"</span>);</div><div class="line">       element.parent().attr(<span class="string">"state"</span>, <span class="string">"open"</span>);</div><div class="line">       element.children(<span class="string">"i"</span>).addClass(<span class="string">"defaultIcon-down"</span>).removeClass(<span class="string">"defaultIcon-up"</span>);</div><div class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="string">'open'</span>) &#123;</div><div class="line">       element.parent().parent().addClass(<span class="string">"pageCtr"</span>).removeClass(<span class="string">"pageCtrInitialize"</span>);</div><div class="line">       element.parent().parent().siblings().addClass(<span class="string">"moduleCtr"</span>).removeClass(<span class="string">"moduleCtrInitialize"</span>);</div><div class="line">       element.parent().attr(<span class="string">"state"</span>, <span class="string">"close"</span>);</div><div class="line">       element.children(<span class="string">"i"</span>).addClass(<span class="string">"defaultIcon-up"</span>).removeClass(<span class="string">"defaultIcon-down"</span>);</div><div class="line">   &#125;</div><div class="line"></div><div class="line"><span class="comment">//优化</span></div><div class="line"><span class="keyword">var</span> $parent = element.parent(),</div><div class="line">	$pParent = $parent.parent();</div><div class="line"></div><div class="line"><span class="comment">//do something...</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>AngularJs</code>的脏值检测机智在<strong>某些时候</strong>会严重影响性能；具体看下面参考资料，必读篇。</p>
+<ul>
+<li>DOM事件，譬如用户输入文本，点击按钮等。(ng-click)</li>
+<li>XHR响应事件 ($http)</li>
+<li>浏览器Location变更事件 ($location)</li>
+<li>Timer事件($timeout, $interval)</li>
+<li><p>执行$digest()或$apply()</p>
+<p>都会触发<code>$digest cycle</code></p>
+</li>
+</ul>
+</li>
+<li>页面鼠标操作触发事件是很耗性能的；</li>
+</ul>
+<h3 id="改进方案"><a href="#改进方案" class="headerlink" title="改进方案"></a>改进方案</h3><blockquote>
+<p>JS&amp;Jquery操作<code>DOM</code>方向</p>
+</blockquote>
+<ul>
+<li>尽量减少<code>html</code>标签的嵌套；</li>
+<li>一定要缓存<strong>多次</strong>使用的<code>DOM</code>节点，操作节点代价很高的；</li>
+<li>减少JS循环的操作；</li>
+<li>使用事件代理，在多数据的列表中 <code>$(&#39;#ul&#39;).on(&#39;click&#39;, &#39;li&#39;, func)</code>;</li>
+<li>对某些<code>DOM</code>样式的操作，可以考虑<code>cssText</code>或者生成临时<code>class</code>样式追加到页面中；</li>
+<li><p>Jquery编码方式性能优化 【读】 </p>
+<ul>
+<li><a href="http://www.open-open.com/lib/view/open1401757126775.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1401757126775.html</a></li>
+<li><a href="http://blog.jobbole.com/10279/" target="_blank" rel="external">http://blog.jobbole.com/10279/</a></li>
+</ul>
+</li>
+<li><p>雅虎性能优化方案【读】</p>
+<ul>
+<li><a href="http://blog.csdn.net/u010648555/article/details/50721751" target="_blank" rel="external">http://blog.csdn.net/u010648555/article/details/50721751</a></li>
+<li><a href="http://www.tuicool.com/articles/J3uyaa" target="_blank" rel="external">http://www.tuicool.com/articles/J3uyaa</a></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>AngularJs优化方向</p>
+</blockquote>
+<ul>
+<li><p>NG的硬伤</p>
+<p>  说到硬伤就要先说下它的简单的数据绑定原理,ng里每个页面上定义的<code>model</code>其实都会在当前作用域下添加一个监听器,内部容器就是<code>$$wachers</code>数组,只要页面任何一个<code>model</code>发生变化了,就会触发作用域内部<code>$digest</code>方法,它会依次查找当前作用域树里的所有<code>model</code>,是保证页面上的模型能得到数据同步,所以这个是非常消耗程序时间的,官方的说法就是当页面上出现<code>2000</code>个监听器时,页面性能就会明显下降.所以要提高ng的性能,就要从这方面入手了.</p>
+</li>
+</ul>
+<ul>
+<li>避免深度数据的<code>$watch</code>,因为会触发<code>$digest</code>，循环脏值检测；详情见【参考资料第一个】</li>
+<li>指令中引用第三方服务，使用 <code>$on.$destroy</code>,来销毁当前不用的服务。</li>
+<li><p>使用Angular一次绑定方案</p>
+<p>  ng的1.3.0+的版本已经内置提供了一个语法来支持模型只绑定一次的情况,看下面的例子:</p>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="comment">&lt;!--双向--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--单项--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;::name&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>$scope.$digest vs $scope.$apply</p>
+<p>  相信很多人对<code>$apply</code>方法不陌生,它一般用在,当不在ng的环境里执行代码的时候,为了保证页面的数据同步,在代码执行完成之后调用$apply方法会触发内部<code>$digest</code>来检查作用域里所有的模型。想要保证页面上所有模型数据的同步,还是得调用<code>$rootScope</code>的,所以在写代码之前最好想想哪些数据是要同步变化的.</p>
+</li>
+<li><p>尽可能少调用 <code>ng-repeat</code></p>
+<p>  <code>ng-repeat</code>默认会创建很多监听器,所以在数据量很大的时候,这个非常消耗页面性能,我觉的只有在当需要经常更新数据列表的时候才需要用<code>ng-repeat</code>,要不然放那么多的监听器在那里也是浪费,这时候可以用ng自带的<code>$interpolate</code>服务来解析一个代码片段,类似于一个静态模板引擎,它的内部主要依赖ng核心解析服务<code>$parse</code>,然后把这些填充数据之后的代码片段直接赋给一个一次性的模型性就可以.</p>
+</li>
+<li><p>尽量在指令里写原生语法</p>
+<p>  虽然ng提供了很多的指令比如<code>ng-show,ng-hide</code>,其实它们作用就是根据模型的<code>true,false</code>来显示或隐藏一个代码片段,虽然能够很快速的实现业务要求,但是这些指令还是默认会添加监听器,假如这些代码片段存在于一个大的指令里面时,更好的方法是在指令<code>link</code>里编写<code>.show(), .hide()</code>这些类似的<code>jq</code>方法来控制比较好,这样可以节省监听器的数量,类似的还有自带的事件指令,这些其实都可以在外围指令里通过使用<code>addEventListener</code>来绑定事件,反正在写代码之前,最好想想怎么样来使监听器的数量最少,这样才能全面的提高页面性能.</p>
+</li>
+<li><p>页面内尽量少用<code>filters</code></p>
+<p>  当在页面内的模型后面增加<code>filter</code>时,这个会造成当前模型在<code>$digest</code>里运行两次,造成不必要的性能浪费.第一次在<code>$$watchers</code>检测任务改变时;第二次发生在模型值修改时,所以尽量少用内联时的过滤器语法,像下面这样的非常影响页面性能<br>  推荐使用<code>$filter</code>服务来调用某个过滤器函数在后台,这样能明显的提高页面性能,代码如下</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$filter(<span class="string">'filter'</span>)(array, expression, comparator);</div></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>系统框架是Angular，这一块由于经验欠缺，说的不是很细，只能贴一些参考。更多的是在 JS，Jquery的操作上面，基础的优化还是很有必要的。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><ul>
+<li>AngularJS性能优化心得【建议必看】 <a href="https://github.com/atian25/blog/issues/5" target="_blank" rel="external">https://github.com/atian25/blog/issues/5</a></li>
+<li>优化AngularJS：1200毫秒到35毫秒的蜕变 <a href="http://blog.jobbole.com/51180/" target="_blank" rel="external">http://blog.jobbole.com/51180/</a></li>
+<li>AngularJS中的数据绑定 <a href="https://github.com/rchee/translation/blob/master/angularJS/databinding-in-angularjs.md" target="_blank" rel="external">https://github.com/rchee/translation/blob/master/angularJS/databinding-in-angularjs.md</a></li>
+<li>How I’ve Improved My Angular Apps by Banning ng-controller <a href="http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html" target="_blank" rel="external">http://teropa.info/blog/2014/10/24/how-ive-improved-my-angular-apps-by-banning-ng-controller.html</a></li>
+<li>angular-lazyload <a href="https://github.com/atian25/angular-lazyload" target="_blank" rel="external">https://github.com/atian25/angular-lazyload</a></li>
+</ul>
+<h2 id="启动性能优化"><a href="#启动性能优化" class="headerlink" title="启动性能优化"></a>启动性能优化</h2><h3 id="启动缺陷分析"><a href="#启动缺陷分析" class="headerlink" title="启动缺陷分析"></a>启动缺陷分析</h3><ul>
+<li>页面加载求情的资源总大小： ；</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">http://10.0.5.40/analystui/project.html#/project?lan=zh</div><div class="line">总请求数 450 个,资源总大小 17.6MB ,transferred 4.88s DOMContentLoaded 1.46s</div></pre></td></tr></table></figure>
+<p>由于是局域网，所以加载完成到启动项目还不是很慢，但是一旦到了公网中，就要考虑用户的带宽问题了。同时浏览器对资源请求并发数，也是有些限制的，具体参考 <a href="http://www.zhihu.com/question/20474326" target="_blank" rel="external">http://www.zhihu.com/question/20474326</a></p>
+<ul>
+<li>页面请求的文件数量： 根据带宽计算时间 ；</li>
+<li>图片，样式，脚本，HTML都没有使用压缩，里面包含了很多的开发注释和一些二次修改代码，导致体积很大；</li>
+<li>nginx优化等等；</li>
+<li>考虑使用<code>CDN</code>，或者全站<code>CDN</code>方案；</li>
+</ul>
+<h3 id="改进方案-1"><a href="#改进方案-1" class="headerlink" title="改进方案"></a>改进方案</h3><ul>
+<li>使用<code>gulp</code>或者其他构建工具压缩 <code>CSS，JS，HTML，IMG</code>，合并等；以带到减少文件大小，请求数量等等；</li>
+<li>可能的话，可以尝试使用全站<code>CDN</code>加速；</li>
+<li>或者使用懒加载方案<code>lazyload</code>，加载后续操作的脚本和样式等；</li>
+</ul>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/angular/" rel="tag">#angular</a>
+          
+            <a href="/tags/jquery/" rel="tag">#jquery</a>
+          
+        </div>
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SEFON-UI">
+          <p class="site-author-name" itemprop="name">SEFON-UI</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化方向"><span class="nav-number">1.</span> <span class="nav-text">优化方向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作性能优化"><span class="nav-number">2.</span> <span class="nav-text">操作性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性能缺陷分析"><span class="nav-number">2.1.</span> <span class="nav-text">性能缺陷分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进方案"><span class="nav-number">2.2.</span> <span class="nav-text">改进方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">2.3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">2.4.</span> <span class="nav-text">参考资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动性能优化"><span class="nav-number">3.</span> <span class="nav-text">启动性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动缺陷分析"><span class="nav-number">3.1.</span> <span class="nav-text">启动缺陷分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进方案-1"><span class="nav-number">3.2.</span> <span class="nav-text">改进方案</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SEFON-UI</span>
+</div>
+
+<div class="powered-by">U&M</div>
+
+<div class="theme-info">
+  Welcome
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
