@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>SEFO-UIFE</title>
+  <title>Sefon-FE</title>
   <subtitle>Do more say less</subtitle>
   <link href="/v/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>https://sefon-fe.github.io/v/</id>
   
   <author>
-    <name>SEFON-UI</name>
+    <name>sefon</name>
     
   </author>
   
