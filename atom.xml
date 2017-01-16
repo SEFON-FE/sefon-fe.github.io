@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>SEFO-UIFE</title>
   <subtitle>Do more say less</subtitle>
-  <link href="/atom.xml" rel="self"/>
+  <link href="/v/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://sefon-fe.github.io/v/"/>
   <updated>2016-09-30T09:04:29.994Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://sefon-fe.github.io/v/</id>
   
   <author>
     <name>SEFON-UI</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>angularjs项目优化方案</title>
-    <link href="http://yoursite.com/2016/09/30/run-faster/"/>
-    <id>http://yoursite.com/2016/09/30/run-faster/</id>
+    <link href="https://sefon-fe.github.io/v/2016/09/30/run-faster/"/>
+    <id>https://sefon-fe.github.io/v/2016/09/30/run-faster/</id>
     <published>2016-09-30T09:20:31.000Z</published>
     <updated>2016-09-30T09:04:29.994Z</updated>
     
@@ -140,12 +140,12 @@
     
     </summary>
     
-      <category term="性能优化" scheme="http://yoursite.com/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <category term="性能优化" scheme="https://sefon-fe.github.io/v/categories/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
     
     
-      <category term="angular" scheme="http://yoursite.com/tags/angular/"/>
+      <category term="angular" scheme="https://sefon-fe.github.io/v/tags/angular/"/>
     
-      <category term="jquery" scheme="http://yoursite.com/tags/jquery/"/>
+      <category term="jquery" scheme="https://sefon-fe.github.io/v/tags/jquery/"/>
     
   </entry>
   
