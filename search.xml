@@ -4,7 +4,7 @@
   
     
     <entry>
-      <title><![CDATA[angularjs项目优化方案]]></title>
+      <title><![CDATA[Angularjs&Jquery项目优化实践]]></title>
       <url>https://sefon-fe.github.io/2016/09/30/run-faster/</url>
       <content type="html"><![CDATA[<h2 id="优化方向"><a href="#优化方向" class="headerlink" title="优化方向"></a>优化方向</h2><ul>
 <li>设计器操作性能优化</li>
