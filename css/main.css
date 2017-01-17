@@ -216,7 +216,7 @@ h6 {
   padding: 0;
   font-weight: bold;
   line-height: 1.5;
-  font-family: Lato, Georgia, sans;
+  font-family: Georgia, Lato, sans;
 }
 h2,
 h3,
@@ -1549,7 +1549,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2f1c0e;
+  background: #505058;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2525,7 +2525,6 @@ body {
   border: 0;
   max-width: 100%;
   padding: 0;
-  font-family: 'Lato';
 }
 @font-face {
   font-family: 'Lato';
@@ -2608,17 +2607,26 @@ body {
 ::-webkit-selection {
   background: #9ec1e7;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 400;
-}
 .posts-expand {
   padding-top: 0;
 }
 .headband {
   height: 1px;
+}
+.post .post-body a:not([class="btn"]) {
+  color: #379cf8;
+  border-bottom: 1px solid #379cf8;
+}
+.post .post-body a:not([class="btn"]):hover {
+  color: rgba(33,156,248,0.65);
+  border-bottom-color: rgba(33,156,248,0.65);
+}
+.btn {
+  border-width: 1px;
+}
+code {
+  margin-left: 3px;
+  margin-right: 3px;
+  color: #333;
+  background-color: #ccc;
 }
