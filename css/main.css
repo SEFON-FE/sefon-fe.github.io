@@ -1549,7 +1549,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #241333;
+  background: #93edeb;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2674,4 +2674,26 @@ code {
   .back-to-top.back-to-top-on {
     bottom: 20px;
   }
+}
+.nav-item.active.active-current {
+  background: #eee;
+  border-left: 1px solid #4cb74c;
+  padding-left: 2px;
+}
+.nav-item {
+  border-left: 1px solid transparent;
+  padding-left: 2px;
+}
+.nav-number {
+  display: none;
+}
+.post-toc .nav .active.active-current > a {
+  border-bottom-color: transparent;
+}
+.post-toc ol a,
+.post-toc ul a {
+  border-bottom-color: transparent;
+}
+.post-toc {
+  border-left: 2px solid #4cb74c;
 }
