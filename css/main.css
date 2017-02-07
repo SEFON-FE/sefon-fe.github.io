@@ -1549,7 +1549,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ba9fa3;
+  background: #ff8f8c;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2696,4 +2696,20 @@ code {
 }
 .post-toc {
   border-left: 2px solid #4cb74c;
+}
+#editor {
+  position: fixed;
+  top: 20%;
+  right: 20px;
+  width: 220px;
+  height: 200px;
+}
+.ace_layer.ace_gutter-layer.ace_folding-enabled {
+  width: 20px !important;
+}
+.ace_gutter-cell {
+  padding-left: 2px;
+}
+.ace_folding-enabled > .ace_gutter-cell {
+  padding-left: 2px;
 }
