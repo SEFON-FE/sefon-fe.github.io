@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://sefon-fe.github.io/"/>
-  <updated>2017-02-07T12:36:37.754Z</updated>
+  <updated>2017-02-07T12:41:29.800Z</updated>
   <id>https://sefon-fe.github.io/</id>
   
   <author>
@@ -20,16 +20,16 @@
     <link href="https://sefon-fe.github.io/2017/02/07/use-mockjs-create-data/"/>
     <id>https://sefon-fe.github.io/2017/02/07/use-mockjs-create-data/</id>
     <published>2017-02-07T07:57:45.000Z</published>
-    <updated>2017-02-07T12:36:37.754Z</updated>
+    <updated>2017-02-07T12:41:29.800Z</updated>
     
     <content type="html"><![CDATA[<p>由于多种原因，在联调的时候会缺少相应的数据，所以我们需要自己构建假的数据测试相关的业务场景，这里简单介绍下 <code>mockjs</code> 在 XXX 项目中的简单引用。本教程只是一个入门参考，需要更健壮的数据请自己在补充。</p>
-<a id="more"></a>
 <h2 id="Mock-下载"><a href="#Mock-下载" class="headerlink" title="Mock 下载"></a>Mock 下载</h2><ul>
 <li>官网地址： <a href="http://mockjs.com/" title="http://mockjs.com/" target="_blank" rel="external">http://mockjs.com/</a></li>
 <li>github地址：<a href="https://github.com/nuysoft/Mock" target="_blank" rel="external">https://github.com/nuysoft/Mock</a></li>
 <li>下载地址：<a href="http://mockjs.com/0.1/" target="_blank" rel="external">http://mockjs.com/0.1/</a> 【<strong>见后面</strong>】</li>
 </ul>
 <p>下载不多说，后面详细说一下在我们XXX项目中的使用方法</p>
+<a id="more"></a>
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul>
 <li>将压缩包放入 <code>runtime</code> -&gt; <code>scripts</code> -&gt; <code>app</code> 下面，如图，解压 【或者你自己随便放】</li>
 </ul>
@@ -64,6 +64,12 @@
     <summary type="html">
     
       &lt;p&gt;由于多种原因，在联调的时候会缺少相应的数据，所以我们需要自己构建假的数据测试相关的业务场景，这里简单介绍下 &lt;code&gt;mockjs&lt;/code&gt; 在 XXX 项目中的简单引用。本教程只是一个入门参考，需要更健壮的数据请自己在补充。&lt;/p&gt;
+&lt;h2 id=&quot;Mock-下载&quot;&gt;&lt;a href=&quot;#Mock-下载&quot; class=&quot;headerlink&quot; title=&quot;Mock 下载&quot;&gt;&lt;/a&gt;Mock 下载&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;官网地址： &lt;a href=&quot;http://mockjs.com/&quot; title=&quot;http://mockjs.com/&quot;&gt;http://mockjs.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;github地址：&lt;a href=&quot;https://github.com/nuysoft/Mock&quot;&gt;https://github.com/nuysoft/Mock&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;下载地址：&lt;a href=&quot;http://mockjs.com/0.1/&quot;&gt;http://mockjs.com/0.1/&lt;/a&gt; 【&lt;strong&gt;见后面&lt;/strong&gt;】&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下载不多说，后面详细说一下在我们XXX项目中的使用方法&lt;/p&gt;
     
     </summary>
     
